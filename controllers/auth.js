@@ -71,9 +71,13 @@ module.exports.registerUser = async function (req, res) {
         }
 
         let user = new User({ username, email, wallet_address, role: roles["user"] });
-        await user.save();
+        const registedUser = await user.save();
 
-        res.status(200).send({ success: true, token: AuthHelpers.generateToken({ username, email, wallet_address }) });
+        res.status(200).send({ 
+            success: true, 
+            user: registedUser,
+            token: AuthHelpers.generateToken({ username, email, wallet_address }),
+        });
     } catch (err) {
         console.log(err.message);
         res.status(500).send(err);
