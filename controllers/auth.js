@@ -60,7 +60,7 @@ module.exports.session = async function (req, res) {
 }
 
 module.exports.registerUser = async function (req, res) {
-    const { username, email, wallet_address } = req.body;
+    const { username, email, wallet_address, password } = req.body;
 
     try {
         let isRegistered = await User.exists({ $or: [{ username }, { email }, { wallet_address }] });
